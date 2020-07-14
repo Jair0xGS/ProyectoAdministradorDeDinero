@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navegation"
+    app:startDestination="@id/landingFragment">
+    <fragment
+        android:id="@+id/landingFragment"
+        android:name="com.dude.moneymanager.landing.LandingFragment"
+        android:label="LandingFragment"
+        tools:layout="@layout/fragment_landing"
+
+
+        >
+
+        <action
+            android:id="@+id/action_landingFragment_to_registerExchangeFragment"
+            app:destination="@id/registerExchangeFragment" />
+
+    </fragment>
+    <fragment
+        android:id="@+id/registerExchangeFragment"
+        android:name="com.dude.moneymanager.registerExchange.RegisterExchangeFragment"
+        tools:layout="@layout/fragment_register_exchange"
+        android:label="RegisterExchangeFragment" >
+        <argument
+            android:name="typeExchange"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_registerExchangeFragment_to_landingFragment"
+            app:destination="@id/landingFragment" />
+    </fragment>
+</navigation>

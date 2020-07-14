@@ -1,0 +1,29 @@
+<resources>
+    <string name="app_name">MoneyManager</string>
+    <string name="add_income_button">Agregar Ganancia</string>
+    <string name="add_expense_button">Agregar Gasto</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="temproaryString">hello my dude :v</string>
+    <string-array name="expenses_array">
+        <item>Comida</item>
+        <item>Cuentas</item>
+        <item>Trasporte</item>
+        <item>Ropa</item>
+        <item>Comunicacion</item>
+        <item>Entretenimiento</item>
+        <item>Regalos</item>
+        <item>Salud</item>
+        <item>Casa</item>
+        <item>Mascotas</item>
+        <item>Deportes</item>
+    </string-array>
+    <string-array name="incomes_array">
+        <item>Sueldo</item>
+        <item>Suerte</item>
+        <item>Otro</item>
+
+    </string-array>
+
+    <string name="submit_Exchange_button">Guardar</string>
+</resources>
