@@ -1,5 +1,6 @@
 package com.dude.moneymanager.landing
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -37,6 +38,10 @@ class TheAdapter : RecyclerView.Adapter<TheAdapter.ViewHolder>(){
         holder.category.text = item.category
         holder.detail.text = item.description
         holder.amount.text = item.amount.toString()+" S/."
+        holder.amount.setTextColor(when (item.type){
+            "Income" -> Color.GREEN
+            else -> Color.RED
+        })
         holder.date.text = convertLongToDateString(item.dateOfExchange)
         holder.image.setImageResource(when (item.type) {
             "Income" -> R.drawable.ic_baseline_trending_up_24

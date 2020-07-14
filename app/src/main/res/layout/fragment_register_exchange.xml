@@ -74,7 +74,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/spinner" />
 
-        <EditText
+        <Button
             android:id="@+id/editTextDate"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -82,9 +82,7 @@
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:ems="10"
-            android:hint="SeleccioneLaFecha"
-            android:inputType="date"
-            android:text="@={exchangeViewModel.date}"
+            android:text="@{exchangeViewModel.date}"
             app:layout_constraintBottom_toTopOf="@+id/descriptionText"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
