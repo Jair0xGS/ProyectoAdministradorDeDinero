@@ -1,2 +1,2 @@
 # ProyectoAdministradorDeDinero
-Proyecto para aprender basicas funcionalidades de desarrollo de android en kotlin
+Proyecto para por en practica basicas funcionalidades de desarrollo de android en kotlin
