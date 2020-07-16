@@ -8,20 +8,48 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.dude.moneymanager.R
-import com.dude.moneymanager.TextItemViewHolder
 import com.dude.moneymanager.convertLongToDateString
 import com.dude.moneymanager.database.Exchange
 
 class TheAdapter : RecyclerView.Adapter<TheAdapter.ViewHolder>(){
 
-    class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
+    class ViewHolder private  constructor(itemView: View): RecyclerView.ViewHolder(itemView){
 
         val detail: TextView = itemView.findViewById(R.id.detailText)
         val amount: TextView = itemView.findViewById(R.id.amountText)
         val category : TextView = itemView.findViewById(R.id.categoryText)
         val date : TextView = itemView.findViewById(R.id.dateText)
         val image: ImageView = itemView.findViewById(R.id.typeExchangeImage)
+        fun bind(
+            item: Exchange
+        ) {
+            val res = itemView.context.resources
 
+            category.text = item.category
+            detail.text = item.description
+            amount.text = item.amount.toString() + " S/."
+            amount.setTextColor(
+                when (item.type) {
+                    "Income" -> Color.GREEN
+                    else -> Color.RED
+                }
+            )
+            date.text = convertLongToDateString(item.dateOfExchange)
+            image.setImageResource(
+                when (item.type) {
+                    "Income" -> R.drawable.ic_baseline_trending_up_24
+                    else -> R.drawable.ic_baseline_trending_down_24
+                }
+            )
+        }
+        companion object {
+             fun from(parent: ViewGroup): ViewHolder {
+                val infaldor = LayoutInflater.from(parent.context)
+
+                val view = infaldor.inflate(R.layout.list_item_exchange, parent, false)
+                return ViewHolder(view)
+            }
+        }
     }
     var data = listOf<Exchange>()
     set(value) {
@@ -33,31 +61,17 @@ class TheAdapter : RecyclerView.Adapter<TheAdapter.ViewHolder>(){
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = data[position]
-        val res = holder.itemView.context.resources
-
-        holder.category.text = item.category
-        holder.detail.text = item.description
-        holder.amount.text = item.amount.toString()+" S/."
-        holder.amount.setTextColor(when (item.type){
-            "Income" -> Color.GREEN
-            else -> Color.RED
-        })
-        holder.date.text = convertLongToDateString(item.dateOfExchange)
-        holder.image.setImageResource(when (item.type) {
-            "Income" -> R.drawable.ic_baseline_trending_up_24
-            else -> R.drawable.ic_baseline_trending_down_24
-        })
+        holder.bind(item)
 
     }
+
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val infaldor =  LayoutInflater.from(parent.context)
-
-        val view  = infaldor.inflate(R.layout.list_item_exchange,parent,false)
-        return ViewHolder(view)
-
-
+        return ViewHolder.from(parent)
     }
+
+
 
 
 }

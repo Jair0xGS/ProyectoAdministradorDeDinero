@@ -9,6 +9,7 @@ import android.widget.DatePicker
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import java.text.DateFormat
+import java.text.SimpleDateFormat
 import java.util.*
 
 /**
@@ -23,13 +24,12 @@ class CalendarDialogFragment : DialogFragment(), DatePickerDialog.OnDateSetListe
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         // Use the current date as the default date in the picker
-        val c = Calendar.getInstance()
-        val year = c.get(Calendar.YEAR)
-        val month = c.get(Calendar.MONTH)
-        val day = c.get(Calendar.DAY_OF_MONTH)
+        var f = SimpleDateFormat("MMM dd,yyyy");
+
+        var d = f.parse(currentDate);
 
         // Create a new instance of DatePickerDialog and return it
-            return  DatePickerDialog(requireContext(), this, year, month, day)
+            return  DatePickerDialog(requireContext(), this, d.year, d.month, d.day)
     }
 
     override fun onDateSet(view: DatePicker, year: Int, month: Int, day: Int) {
@@ -56,5 +56,12 @@ class CalendarDialogFragment : DialogFragment(), DatePickerDialog.OnDateSetListe
         val listener = targetFragment as EditDateDialogListener?
         listener!!.onFinishCalendarDialog(currentDate)
         dismiss()
+    }
+    companion object {
+        fun getNewInstance(fecha : String): CalendarDialogFragment{
+            var newCalendar = CalendarDialogFragment()
+            newCalendar.currentDate = fecha
+            return newCalendar
+        }
     }
 }

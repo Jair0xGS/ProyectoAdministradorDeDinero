@@ -26,4 +26,6 @@
     </string-array>
 
     <string name="submit_Exchange_button">Guardar</string>
+    <string name="select_text">Seleccionar</string>
+    <string name="select_title">Selecciona una categoria</string>
 </resources>

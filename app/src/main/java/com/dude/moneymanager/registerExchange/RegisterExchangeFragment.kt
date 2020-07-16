@@ -1,5 +1,6 @@
 package com.dude.moneymanager.registerExchange
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -11,6 +12,8 @@ import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
+import com.afollestad.materialdialogs.MaterialDialog
+import com.afollestad.materialdialogs.list.listItemsSingleChoice
 import com.dude.moneymanager.CalendarDialogFragment
 import com.dude.moneymanager.R
 import com.dude.moneymanager.database.MoneyManagerDb
@@ -64,19 +67,45 @@ class RegisterExchangeFragment : Fragment() , CalendarDialogFragment.EditDateDia
         })
 
         binding.editTextDate.setOnClickListener{
-            showEditDialog()
+            showCalendarDialog()
+        }
+        binding.categorySelection.setOnClickListener{
+            showCategoryDialog()
         }
 
         return binding.root
         //return inflater.inflate(R.layout.fragment_register_exchange, container, false)
     }
-    private fun showEditDialog() {
+    @SuppressLint("LongLogTag")
+    private fun showCategoryDialog(){
+
+        //Crear un dialog  simplemente usando Material Dialog
+        MaterialDialog(requireContext()).show {
+            //asginar el titulo
+            title(R.string.select_title)
+            //asignar los items disponibles de acuerdo a el tipo de transaccion
+            listItemsSingleChoice(when(viewModel.typeValue){
+                "Income" -> R.array.incomes_array
+                else -> R.array.expenses_array
+            }){ dialog, index, text ->
+                //asignar la categoria en el view model
+                viewModel.category.value = text.toString()
+                if(!viewModel.allowSubmit.value!!){
+                    viewModel.allowSubmit.value = true
+                }
+            }
+            positiveButton(R.string.select_text)
+        }
+    }
+
+    private fun showCalendarDialog() {
         val fm: FragmentManager? = fragmentManager
         val editNameDialogFragment: CalendarDialogFragment =
-            CalendarDialogFragment()
+            CalendarDialogFragment.getNewInstance(viewModel.date.value!!)
         // SETS the target fragment for use later when sending results
         editNameDialogFragment.setTargetFragment(this, 300)
-        editNameDialogFragment.show(fm!!, "fragment_edit_name")
+        //mostrar el fragmento
+        editNameDialogFragment.show(fm!!, "dialog_fragment_calendar_picker")
     }
     override fun onFinishCalendarDialog(inputText: String?) {
         Log.i("my men","the textPassed id ${inputText}")

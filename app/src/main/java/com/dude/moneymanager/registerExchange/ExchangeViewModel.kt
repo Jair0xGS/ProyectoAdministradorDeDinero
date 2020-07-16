@@ -39,16 +39,15 @@ class ExchangeViewModel(
         _goToLanding.value = null
     }
 
-     val date =  MutableLiveData<String>()
-
+     val date =  MutableLiveData<String>(DateFormat.getDateInstance(DateFormat.DEFAULT).format( Calendar.getInstance().time))
+    val allowSubmit = MutableLiveData<Boolean>(false)
       val description = MutableLiveData<String>()
-
-      val category = MutableLiveData<String>()
+        val typeValue : String
+            get() = exchangeTypeParam
+      val category = MutableLiveData<String>("Selecciona la categoria de la transaccion")
 
       val amount = MutableLiveData<String>()
-        init {
-            date.value =DateFormat.getDateInstance(DateFormat.DEFAULT).format( Calendar.getInstance().time)
-        }
+
     private suspend fun insert(exchange: Exchange){
         withContext(Dispatchers.IO){
 
@@ -66,12 +65,9 @@ class ExchangeViewModel(
             dataBaseDao.insert(exchange)
         }
     }
-    fun toMilliseconds(stringDate :String) :Long{
-        var f = SimpleDateFormat("MMM dd,yyyy");
-
-        var d = f.parse(stringDate);
-        var milliseconds = d.getTime();
-        return milliseconds
+    private fun toMilliseconds(stringDate :String) :Long{
+        @Suppress("RECEIVER_NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
+        return SimpleDateFormat("MMM dd,yyyy").parse(stringDate).time
     }
 
     fun saveExchangeHandler(){
