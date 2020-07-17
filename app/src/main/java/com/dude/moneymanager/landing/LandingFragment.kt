@@ -79,9 +79,10 @@ class LandingFragment : Fragment() {
         val adapter = TheAdapter()
         binding.theRecyclerView.adapter = adapter
 
+        //observar cuando los intercambios se han actualizado
         theViewModel.allExchanges.observe(viewLifecycleOwner, Observer {
             it?.let {
-                adapter.data = it
+                adapter.submitList(it)
             }
         })
         return binding.root
