@@ -72,6 +72,7 @@ class ExchangeViewModel(
 
     fun saveExchangeHandler(){
         //description.value = description.value.plus("x")
+
         uiScope.launch {
             val newExchange = Exchange()
 
